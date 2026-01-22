@@ -1,0 +1,171 @@
+{
+  "name": "pending-changes-reviewer",
+  "displayName": "Pending Changes Reviewer",
+  "description": "Automatically track and review file changes - Accept or discard modifications with inline diff view. Perfect companion for AI coding assistants like Claude Code.",
+  "version": "1.0.9",
+  "publisher": "pending-changes-reviewer",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "SCM Providers"
+  ],
+  "keywords": [
+    "diff",
+    "review",
+    "changes",
+    "claude",
+    "copilot",
+    "ai",
+    "code review"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pending-changes",
+          "title": "Pending Changes Reviewer",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "pending-changes": [
+        {
+          "id": "pendingChangesView",
+          "name": "",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "pendingChanges.acceptFile",
+        "title": "Keep",
+        "icon": "$(check)"
+      },
+      {
+        "command": "pendingChanges.discardFile",
+        "title": "Undo",
+        "icon": "$(discard)"
+      },
+      {
+        "command": "pendingChanges.acceptAll",
+        "title": "Keep All",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "pendingChanges.discardAll",
+        "title": "Undo All",
+        "icon": "$(discard)"
+      },
+      {
+        "command": "pendingChanges.showDiff",
+        "title": "Show Diff",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "pendingChanges.snapshotFile",
+        "title": "Pending Changes: Snapshot Current File",
+        "icon": "$(pin)"
+      },
+      {
+        "command": "pendingChanges.snapshotAll",
+        "title": "Pending Changes: Snapshot All Open Files",
+        "icon": "$(pinned)"
+      },
+      {
+        "command": "pendingChanges.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "pendingChanges.openInPanel",
+        "title": "Pending Changes: Open in Bottom Panel"
+      }
+    ],
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "pendingChanges.acceptFile",
+          "when": "view =~ /pendingChanges.*View/ && viewItem == changedFile",
+          "group": "inline@1"
+        },
+        {
+          "command": "pendingChanges.discardFile",
+          "when": "view =~ /pendingChanges.*View/ && viewItem == changedFile",
+          "group": "inline@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Pending Changes Reviewer",
+      "properties": {
+        "pendingChanges.watchPatterns": {
+          "type": "array",
+          "default": [
+            "**/*.{js,ts,jsx,tsx,py,java,cpp,c,h,hpp,cs,go,rs,rb,php,swift,kt,scala,vue,svelte,html,css,scss,sass,less,json,yaml,yml,xml,md,txt}"
+          ],
+          "description": "File patterns to watch for changes"
+        },
+        "pendingChanges.excludePatterns": {
+          "type": "array",
+          "default": [
+            "**/node_modules/**",
+            "**/.git/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/.next/**",
+            "**/out/**",
+            "**/__pycache__/**",
+            "**/.venv/**",
+            "**/venv/**"
+          ],
+          "description": "File patterns to exclude from tracking"
+        },
+        "pendingChanges.fontSize": {
+          "type": "number",
+          "default": 13,
+          "minimum": 8,
+          "maximum": 24,
+          "description": "Font size (in pixels) for file names in the Pending Changes panel"
+        },
+        "pendingChanges.fontFamily": {
+          "type": "string",
+          "default": "",
+          "description": "Font family for the Pending Changes panel. Leave empty to use VS Code default."
+        },
+        "pendingChanges.lineHeight": {
+          "type": "number",
+          "default": 22,
+          "minimum": 16,
+          "maximum": 40,
+          "description": "Line height (in pixels) for items in the Pending Changes panel"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "dependencies": {
+  }
+}
