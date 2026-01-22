@@ -2,8 +2,8 @@
   "name": "pending-changes-reviewer",
   "displayName": "Pending Changes Reviewer",
   "description": "Automatically track and review file changes - Accept or discard modifications with inline diff view. Perfect companion for AI coding assistants like Claude Code.",
-  "version": "1.0.9",
-  "publisher": "pending-changes-reviewer",
+  "version": "1.0.10",
+  "publisher": "BPolyakov",
   "engines": {
     "vscode": "^1.85.0"
   },
